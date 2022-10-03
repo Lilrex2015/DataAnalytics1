@@ -52,6 +52,8 @@ EX5DF <-  data.frame(exam_scores5)
 #1 -> 50
 #2 -> 60
 #3 -> 60
+#4 -> 60
+#5 -> 67
 
 
 
@@ -169,7 +171,6 @@ else if(R < PB)
 
 
 Grade_Analyzer(S,R,P,B)
-Grade_Estimator(S, P, B)
 
 #########################
 #########################
@@ -212,6 +213,7 @@ Grade_Estimator <- function(S,P,B)
 #########################
 #########################
 
+Grade_Estimator(S, P, B)
 
 
 #1B
