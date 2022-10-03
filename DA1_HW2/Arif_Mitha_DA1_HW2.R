@@ -251,7 +251,7 @@ exam_body$Total <- NA
 
 
 for (pCounter in seq(from=0, to=100, by=2)) {
-  for (bCounter in seq( from=0, to=100, by=2)) {
+ for (bCounter in seq( from=0, to=100, by=2)) {
     
     if(pCounter + bCounter <= 60)
     {
@@ -430,101 +430,28 @@ class_roster <- class_roster %>% unite('Full_Name', First.Name:Last.Name, remove
 numbers_used_Q3 <- 1:nrow(class_roster)
 print(class_roster)
 print(numbers_used_Q3)
+fullName_df <- data.frame()
 
+Projects_Assignments = data.frame(Marker_ID = 1:nrow(class_roster),
+                  
+                  Project_Student_ID_1 = c(nrow(class_roster), 1:(nrow(class_roster)-1)),
+                  
+                  Project_Student_ID_2 = c((nrow(class_roster)-1):nrow(class_roster), 1:(nrow(class_roster)-2)),
+                  
+                  Project_Student_ID_3 = c((nrow(class_roster)-2):nrow(class_roster), 1:(nrow(class_roster)-3)))
 
-
-student_marking <- vector() #who is marking
-#students_used <- vector() #people being marked by Student_marking
-NQ3 <- 33 
-final_list <- data.frame()
-
-
+for (i  in 1:length(Projects_Assignments))
+{
   
-if(NQ3 < 4)
-  {
+  fullName_df_temp <- data.frame(Marker_Name = class_roster$Full_Name[Projects_Assignments$Marker_ID[i]], Project_Name_1 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_1[i]],Project_Name_2 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_2[i]], Project_Name_3 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_3[i]])
+  fullName_df <- bind_rows(fullName_df, fullName_df_temp)
   
-  print("This roster size is too small. Minimum of 4")
-  
+}
 
-  }else
-    {
 
-  ###################################################################    
-            #Go over the whole class list
-      #for (i in 1:NQ3) 
-      for (i in 1: 6){
-        
-        
-        #Get the student who is going to be the marker
-        if(i <= 6) #NQ3
-        {
-          temp_list <- c()
-         
-          #Make sure no duplicate student markers are used 
-          while (TRUE) {
-            
-            rng_Q3 <- sample(numbers_used_Q3, 1) #pick a student to be the marker
-           
-            print(paste("Student who is marking is " , rng_Q3))
-            
-            
-            if(!rng_Q3 %in% student_marking) #check for previously used student markers
-            {
-              
-             break
-            }#end IF
-            
-            
-            } #end while
-          student_marking <- append(student_marking, rng_Q3) #This stores the list of students already picked to be markers
-          
-       ################################################   
-          students_used <- vector()
-           for (i  in 1:3)
-      {
-             
-            
-        while (TRUE)
-        {
-          rng_Q3_1 <- sample(numbers_used_Q3, 1)
-          print(paste("Students projects to be graded ", rng_Q3_1))
-          
-          
-         if(rng_Q3_1 != rng_Q3) #make sure the project being picked is the markers project
-         {
-           break
-           
-           
-           #end IF
-         }
-          
-          if(!rng_Q3_1 %in% students_used) #check to make sure the same student project isnt being picked twice for the marker
-          {
-            
-            break
-            
-          } #end IF
-          
-         temp_list <- c(temp_list, rng_Q3, rng_Q3_1)
-         print("temp list")
-         print(temp_list)
-         
-          }#END WHILE
-             
-       
-             students_used <- append(students_used, rng_Q3_1)
-     
-        
-        
-      } #END FOR LOOP 1:3
-         
-          
-        } #end IF
-        
-    
-        } #End For
-      
-    }#end Else
+
+
+
 
 
 #########################
@@ -546,52 +473,29 @@ player_guess_450 = 450
 player_choice_500 = 500
 player_guess_950 = 950
 N <- 1000
-N4D <- 0:1000
+N4D <- 1:1001
 oneMilN <- 1000000
 loss_vector <- numeric(0)
-HwQ4File <- data.frame(HW2Q4) #file loaded into data frame
+HwQ4File <- HW2Q4 #file loaded into data frame
 
 
 
 Q4atoc <- function(player_guess)
   
 {
-  random_generator <- sample(0:1000 , 1, replace=TRUE)
-  print(random_generator)
-  
-  #This is supposed to handle the win condition
-  
-  if(player_guess %in% random_generator)
-  {
-    print("You win this time Gadget! But I'll get you next time! Meow!")
 
-  }
+ 
+ for (i  in 1:1001 )
+ {
+   difference_calc <- abs(player_guess - i)**2
+   loss_vector = append(loss_vector, difference_calc)
   
-  #else{
-    difference_amount <- abs((player_guess +1)- random_generator) # instead of doing 2 if statements use the absolute function 200IQ, +1 to count for the inclusiveness
-    
-    difference_amount_sqr <- difference_amount**2 #square the difference
-    
-    roundToFiveGrand <- round(difference_amount_sqr/5000)*5000  #round to the nearest 5 Grand
-    
-      print("The house wins again, You owe this much:")
-    
-    print(roundToFiveGrand) #safety Check make sure the number is a single number
-    
-    if(roundToFiveGrand >= 500000)
-    {
-      print("Oof, that sucks. Looks like you might need this more than ever before. I hear they have a great benefits plan after 10 years https://careers.mcdonalds.ca/")
-    }else if(roundToFiveGrand >= 499999)
-      
-    {
-      print("That sucks, it could be worse. But you might want to bookmark this page just in case. https://careers.walmart.ca/")
-    }else 
-    {
-      print("Hope you got deep pockets, bc it only gets worse from here champ!")
-      
-    } #End else
-    
-  #} # end else
+   
+   
+ }
+  Mean_loss_vec <- mean(loss_vector)
+  print(Mean_loss_vec)
+  
  
 } #End Function
 
@@ -606,56 +510,30 @@ Q4atoc(player_guess_950)
 
 #Q4D
 
-Q4D <- function(N4D, oneMilN)
+Q4D <- function(player_num)
 {
   
   #get all the values from 0:1000 and then random generate the values from the pool of OneMilN
   
-  random_generator_4D <- sample(0:1000, oneMilN, TRUE)
+  random_generator_4D <- sample(player_num, oneMilN, TRUE)
+  loss_vector_4D <- numeric(0)
   
-  for (i in 1:length(N4D)) {
-    
-    find_The_Min_Loss <- abs(N4D[i] - random_generator_4D[i])**2 #loop the choices
-    print(find_The_Min_Loss)
-    
-    #sqr_The_Loss_Difference <- find_The_Min_Loss **2 # Square the values
-    
-   # loss_vector[i] <- mean(sqr_The_Loss_Difference) #get the mean values
-    
-    loss_vector[i] <- mean(find_The_Min_Loss)
+  
+  for (i  in 1:length(N4D) )
+  {
+    mean_guess <- mean(random_generator_4D)
+    difference_calc <- abs(mean_guess - i)**2
+    loss_vector_4D = append(loss_vector_4D, difference_calc)
     
     
-   #round_To_The_Neasrest_Five <-  round(loss_vector[i]/5)*5 #round the result to the nearest 5 value
-    
-  #print(round_To_The_Neasrest_Five)
-
-  print(loss_vector)
-    
-      } #END FOR
+  }
   
-  #Get the minimum of the final result
-  # print("min")
-  # min_Five <- min(round_To_The_Neasrest_Five)
-  # print(min_Five)
-  # print("which min")
-  # which_Five <- which.min(round_To_The_Neasrest_Five)
-  # print(which_Five)
-  # 
-  print("min")
-  
-  min_Five <- min(loss_vector) -1
-  
-  print(min_Five)
-  
-  print("which min")
-  
-  which_Five <- which.min(loss_vector)-1
-  
-  print(which_Five)
-  
+  final_min <- which.min(loss_vector_4D)
+  print(final_min)
+  return(final_min)
 } #End Q4D
 
-Q4D(N4D, oneMilN )
+Q4D(N4D)
 
 
 ####################################################################################################
@@ -664,5 +542,204 @@ Q4D(N4D, oneMilN )
 
 #Q4E
 
+etest<- Q4atoc(500)
+
+print(etest)
+
+#Q4F
+
+Q4F <- function(player_num)
+{
+  loss_vector_4f <- numeric(0)
+  storage_df_1 <-  data.frame()
+  #get all the values from 0:1000 and then random generate the values from the pool of OneMilN
+  
+  random_generator_4f <- sample(player_num, oneMilN, TRUE)
+
+  
+  for (i  in 1:length(player_num) )
+  {
+    mean_guess <- mean(random_generator_4f)
+    #print(mean_guess)
+    difference_calc <- abs(mean_guess - i)**2
+    loss_vector_4f = append(loss_vector_4f, difference_calc)
+    storage_df <- data.frame(vectorFile = player_num[i], Expected_Loss = loss_vector_4f)
+    storage_df_1 <- bind_rows(storage_df_1, storage_df)
+    
+    
+  }
+  
+  final_min <- storage_df_1$vectorFile[which.min(storage_df_1$Expected_Loss)]
+  print(final_min)
+  return(final_min)
+} #End Q4F
 
 
+I_am_Over_This <-  Q4F(HwQ4File)
+
+print(I_am_Over_This)
+
+
+
+
+
+
+####################################################################################################
+######################################## DEAD CODE #################################################
+####################################################################################################
+
+# Q3
+# 
+# class_roster <- data.frame(read.csv("BTMA 636 - 797 (Fall 2022).csv"))
+# print(class_roster)
+# class_roster <- tibble::rowid_to_column(class_roster,"Student_ID")
+# 
+# class_roster <- class_roster %>% unite('Full_Name', First.Name:Last.Name, remove = FALSE) 
+# numbers_used_Q3 <- 1:nrow(class_roster)
+# print(class_roster)
+# print(numbers_used_Q3)
+# 
+# 
+# 
+# student_marking <- vector() #who is marking
+# #students_used <- vector() #people being marked by Student_marking
+# NQ3 <- 33 
+# final_list <- data.frame()
+# 
+# 
+# 
+# if(NQ3 < 4)
+# {
+#   
+#   print("This roster size is too small. Minimum of 4")
+#   
+#   
+# }else
+# {
+#   
+#   ###################################################################    
+#   #Go over the whole class list
+#   #for (i in 1:NQ3) 
+#   for (i in 1: 6){
+#     
+#     
+#     #Get the student who is going to be the marker
+#     if(i <= 6) #NQ3
+#     {
+#       temp_list <- c()
+#       
+#       #Make sure no duplicate student markers are used 
+#       while (TRUE) {
+#         
+#         rng_Q3 <- sample(numbers_used_Q3, 1) #pick a student to be the marker
+#         
+#         print(paste("Student who is marking is " , rng_Q3))
+#         
+#         
+#         if(!rng_Q3 %in% student_marking) #check for previously used student markers
+#         {
+#           
+#           break
+#         }#end IF
+#         
+#         
+#       } #end while
+#       student_marking <- append(student_marking, rng_Q3) #This stores the list of students already picked to be markers
+#       
+#       ################################################   
+#       students_used <- vector()
+#       for (i  in 1:3)
+#       {
+#         
+#         
+#         while (TRUE)
+#         {
+#           rng_Q3_1 <- sample(numbers_used_Q3, 1)
+#           print(paste("Students projects to be graded ", rng_Q3_1))
+#           
+#           
+#           if(rng_Q3_1 != rng_Q3) #make sure the project being picked is the markers project
+#           {
+#             break
+#             
+#             
+#             #end IF
+#           }
+#           
+#           if(!rng_Q3_1 %in% students_used) #check to make sure the same student project isnt being picked twice for the marker
+#           {
+#             
+#             break
+#             
+#           } #end IF
+#           
+#           temp_list <- c(temp_list, rng_Q3, rng_Q3_1)
+#           print("temp list")
+#           print(temp_list)
+#           
+#         }#END WHILE
+#         
+#         
+#         students_used <- append(students_used, rng_Q3_1)
+#         
+#         
+#         
+#       } #END FOR LOOP 1:3
+#       
+#       
+#     } #end IF
+#     
+#     
+#   } #End For
+#   
+# }#end Else
+# 
+# 
+
+
+
+
+# 
+# 
+# 
+# Q4atoc <- function(player_guess)
+#   
+# {
+#   random_generator <- sample(0:1000 , 1, replace=TRUE)
+#   print(random_generator)
+#   
+#   #This is supposed to handle the win condition
+#   
+#   if(player_guess == random_generator)
+#   {
+#     print("You win this time Gadget! But I'll get you next time! Meow!")
+#     
+#   }
+#   
+#   #else{
+#   difference_amount <- abs((player_guess +1)- random_generator) # instead of doing 2 if statements use the absolute function 200IQ, +1 to count for the inclusiveness
+#   
+#   difference_amount_sqr <- difference_amount**2 #square the difference
+#   
+#   roundToFiveGrand <- round(difference_amount_sqr/5000)*5000  #round to the nearest 5 Grand
+#   
+#   print("The house wins again, You owe this much:")
+#   
+#   print(roundToFiveGrand) #safety Check make sure the number is a single number
+#   
+#   if(roundToFiveGrand >= 500000)
+#   {
+#     print("Oof, that sucks. Looks like you might need this more than ever before. I hear they have a great benefits plan after 10 years https://careers.mcdonalds.ca/")
+#   }else if(roundToFiveGrand >= 499999)
+#     
+#   {
+#     print("That sucks, it could be worse. But you might want to bookmark this page just in case. https://careers.walmart.ca/")
+#   }else 
+#   {
+#     print("Hope you got deep pockets, bc it only gets worse from here champ!")
+#     
+#   } #End else
+#   
+#   #} # end else
+#   
+# } #End Function
