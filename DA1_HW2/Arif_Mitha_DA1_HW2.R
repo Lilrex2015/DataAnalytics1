@@ -1,6 +1,8 @@
 # Data Analytics HW2
 #Author: Arif Mitha
 
+getwd()
+setwd("/DA1_HW2")
 
 # install.packages("ggplot2")
 # install.packages('tidyr')
@@ -16,7 +18,7 @@ load("exam_scores3.rda")
 load("exam_scores4.rda")
 load("exam_scores5.rda")
 load("HW2Q4.Rdata")
-read.csv("BTMA 636 - 797 (Fall 2022).csv")
+rosterFile <- read.csv("BTMA 636 - 797 (Fall 2022).csv")
 
 EX1DF <-  data.frame(exam_scores1)
 EX2DF <-  data.frame(exam_scores2)
@@ -25,7 +27,7 @@ EX4DF <-  data.frame(exam_scores4)
 EX5DF <-  data.frame(exam_scores5)
 
 ###############################################################################################################################################################################
-##########################################################################READ THESE INSTRUCTIONS CAREFULLY!!!#################################################################
+######################################################################### READ THESE INSTRUCTIONS CAREFULLY!!! ################################################################
 ###############################################################################################################################################################################
 #Q1 functions
 #Q1 has 2 functions, Grade_Analyzer, and Grade_Estimator
@@ -39,14 +41,56 @@ EX5DF <-  data.frame(exam_scores5)
 
 #Grade_Estimator(S, P, B)
 
+###############################################################################################################################################################################
+#Q1B *Not Working, Code is commented out
+###############################################################################################################################################################################
+
+#Q2
+
+#This function is called RND_Stu_Sel(N, data_frame) and it is built to randomly select students for an instructor.
+#It takes 2 arguments, an N value which is the number of students the instructor wants to pick, and a data frame which is a roster list of people to pick from.
 
 
+#RND_Stu_Sel(5, student_DF)
 
+###############################################################################################################################################################################
 
+#Q3
+
+#This function will choose from a class roster, 1 person to be the marker and 3 projects for them to mark. 
+#This function takes in 1 argument which is a roster file in csv format. This change can be made on line 21. 
+#The output for this function is a data frame called fullName_df. 
+
+#Q31to3Marker(rosterFile)
+
+###############################################################################################################################################################################
+
+#Q4 
+
+#Q4 has 3 functions. The first one is Q4atoc(player_guess). The player_guess is the number input for comparing against the instructor guess. 
+#The 3 function examples below are test examples.
+
+#Q4atoc(player_guess_30)
+#Q4atoc(player_guess_450)
+#Q4atoc(player_guess_950)
+
+#Q4D
+#This function measures the expected loss. It takes in one argument which is a range of numbers 1:1001
+
+#Q4D(N4D)
+
+#Q4E
+#This is not a function, it takes the output from 4D and runs it back in through the same 4D function.
+
+#Q4F
+
+#This function measures the best number to minimize the expected loss.  It takes in one argument which is the file of numbers.
+
+#Q4F(HwQ4File)
 
 
 ###############################################################################################################################################################################
-#####################################################################  QUIZ ANSWERS ##########################################################################################
+##################################################################### QUIZ ANSWERS ##########################################################################################
 ###############################################################################################################################################################################
 
 #1 -> 50
@@ -54,7 +98,37 @@ EX5DF <-  data.frame(exam_scores5)
 #3 -> 60
 #4 -> 60
 #5 -> 67
-
+# 6-> 78
+# 7-> 84
+# 8-> 84
+# 9-> 60
+# 10-> 116
+# 11-> 26
+# 12-> 34
+# 13-> 30
+# 14-> 30
+# 15-> 38
+# 16-> 22
+# 17-> 42
+# 18-> 18
+# 19-> 22
+# 20-> 38
+# 21-> 2
+# 22-> yes
+# 23-> yes
+# 24-> yes
+# 25-> no
+# 26-> yes
+# 27-> 1
+# 28-> no
+# 29-> No
+# 30-> No
+# 31-> 305,000
+# 32-> 285,000
+# 33-> 85,000
+# 34-> 500
+# 35-> 85,000
+# 36-> 12,390
 
 
 ###############################################################################################################################################################################
@@ -225,91 +299,52 @@ Grade_Estimator(S, P, B)
 # EX4DF
 # EX5DF
 
-average_of_exam <-  mean(EX5DF$exam_scores5)
-print(average_of_exam)
 
-rows_of_scores = nrow(EX1DF) #all are 30 so it doesn't matter which exam is used.
+#Q1B - This I could not get working. I am over it. It is 10pm 10/03/2022, I am tired. 
 
-counter = 0;
-master_Data_Frame <-  data.frame(MeanEx = numeric(0), StdDiv = numeric(0), P_value = numeric(0), B_value = numeric(0), SB_Total = numeric(0))
+#check the mean score is greater than 75 and less than 70
+#P and B assume 30 each from examples
 
+# Q1B_DF <- data.frame()
+# pb_DF <-  data.frame(PValue = numeric(), BValue = numeric(),MeanScore = numeric(), StdScore = numeric())
+# 
+# if(mean(EX4DF$exam_scores4) < 75)
+# {
+#   
+#   for (pChecker  in 1:30 )
+#   {
+#     #both p and b need to be multiples of 2
+#     pValue = pChecker *2 
+#     
+#     for (bChecker  in 1:30 )
+#     {
+#       
+#       bValue <- bChecker *2
+#       
+#       if(pValue + bValue < 60)
+#       {
+#         
+#         #dont need all grades just the average
+#         Q1B_DF_1 <- data.frame(Col1 = Grade_Estimator(bChecker, pValue, bValue))   
+#         Q1B_DF <- bind_rows(Q1B_DF, Q1B_DF_1)
+#         
+#         #end IF
+#         pb_DF <- bind_rows(PValue = pValue, BValue = bValue, MeanScore = mean(Q1B_DF$Col1), StdScore = std(Q1B_DF$Col1))
+#       }
+#       if(Q1B_DF$Col1[i] > 70 & Q1B_DF$Col1[i] < 75)
+#       {
+#         
+#         
+#         
+#         
+#       }#end IF
+#     }
+#     
+#   }
+#   
+#   
+# } #end IF
 
-# P and B need to be multiples of 2 easiest way is to just increments by 2, or could % 2 from top down but too much work
-#Going on assumption of P and B are both native 30 since all other questions used that number. Nothing else was specified
-#src https://stat.ethz.ch/pipermail/r-help/2008-July/168753.html
-#exam scores = S, read about part for S+B
-
-
-
-
-exam_body <- EX4DF
-exam_body$P <- NA
-exam_body$B <- NA
-exam_body$Total <- NA
-
-
-
-
-for (pCounter in seq(from=0, to=100, by=2)) {
- for (bCounter in seq( from=0, to=100, by=2)) {
-    
-    if(pCounter + bCounter <= 60)
-    {
-      print("b")
-      print(bCounter)
-   
-      #break
-      next
-    }
-    
-    else
-    {
-      
-      exam_body$P <- pCounter
-      exam_body$B <- bCounter
-      
-      
-    }#End Else
-    
-    
-    
-    for (i  in 1:rows_of_scores )
-    {
-      if(exam_body$exam_scores4[i] < pCounter)
-      {
-        
-        #break
-        next
-      }#end IF
-      
-      else
-      {
-        #https://www.anycodings.com/1questions/465947/error-in-amplt-dataframetmp-pvalue-value-966218350888067e-05-replacement-has-1-row-data-has-0
-        
-        exam_body$Total[i]<- exam_body$exam_scores4 + bCounter
-        
-        
-      }#End Else
-      
-    }
-    
-    #check for the mean of the Total and it needs to be between >70 and < 75
-    if(mean(exam_body$Total) > 70 & mean(exam_body$Total < 75))
-    {
-      
-      counter <- counter +1
-      master_Data_Frame[counter, ] <- list(P_value = pCounter, B_Value = bCounter, MeanEx = mean(exam_body$Total, Std = sd(exam_body$Total)))
-      
-      
-    }#end IF
-    
-    
-    #If possible, choose P and B so the maximum post-retake average is between 70 and 75 (strict inequality)
-    #and that P + B ≥ 60. If there are multiple P and B that satisfy this criterion, then choose the one whose
-    #standard deviation of post-retake scores is closest to the standard deviation of the pre-retake scores.
-  }
-  
-}
 
 #########################
 #########################
@@ -373,7 +408,7 @@ RND_Stu_Sel <- function(N, student_DF)
         
         used_numbers <- append(used_numbers,rng_gg)
         #print(used_numbers)
-        print(paste0("Here is a list of the numbers that have already been used ", used_numbers))
+        print(paste0("Here is a list of the numbers that have been used ", used_numbers))
         
         name_student <- student_DF$Full_Name[student_DF$Student_ID == rng_gg]
         id_student <- student_DF$Student_ID[student_DF$Student_ID == rng_gg]
@@ -403,7 +438,7 @@ RND_Stu_Sel <- function(N, student_DF)
   
 
 
-RND_Stu_Sel(5, student_DF)
+
 
 
 #########################
@@ -421,35 +456,41 @@ RND_Stu_Sel(5, student_DF)
 #Q3
 
 
-
-class_roster <- data.frame(read.csv("BTMA 636 - 797 (Fall 2022).csv"))
-print(class_roster)
-class_roster <- tibble::rowid_to_column(class_roster,"Student_ID")
-
-class_roster <- class_roster %>% unite('Full_Name', First.Name:Last.Name, remove = FALSE) 
-numbers_used_Q3 <- 1:nrow(class_roster)
-print(class_roster)
-print(numbers_used_Q3)
-fullName_df <- data.frame()
-
-Projects_Assignments = data.frame(Marker_ID = 1:nrow(class_roster),
-                  
-                  Project_Student_ID_1 = c(nrow(class_roster), 1:(nrow(class_roster)-1)),
-                  
-                  Project_Student_ID_2 = c((nrow(class_roster)-1):nrow(class_roster), 1:(nrow(class_roster)-2)),
-                  
-                  Project_Student_ID_3 = c((nrow(class_roster)-2):nrow(class_roster), 1:(nrow(class_roster)-3)))
-
-for (i  in 1:length(Projects_Assignments))
+Q31to3Marker <- function(rosterFile)
 {
+  class_roster <- data.frame(rosterFile)
+  #class_roster <- data.frame(read.csv("BTMA 636 - 797 (Fall 2022).csv"))
+  print(class_roster)
+  class_roster <- tibble::rowid_to_column(class_roster,"Student_ID")
   
-  fullName_df_temp <- data.frame(Marker_Name = class_roster$Full_Name[Projects_Assignments$Marker_ID[i]], Project_Name_1 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_1[i]],Project_Name_2 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_2[i]], Project_Name_3 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_3[i]])
-  fullName_df <- bind_rows(fullName_df, fullName_df_temp)
+  class_roster <- class_roster %>% unite('Full_Name', First.Name:Last.Name, remove = FALSE) 
+  numbers_used_Q3 <- 1:nrow(class_roster)
+  print(class_roster)
+  print(numbers_used_Q3)
+  fullName_df <- data.frame()
+  
+  
+  Projects_Assignments = data.frame(Marker_ID = 1:nrow(class_roster),
+                                    
+                                    Project_Student_ID_1 = c(nrow(class_roster), 1:(nrow(class_roster)-1)),
+                                    
+                                    Project_Student_ID_2 = c((nrow(class_roster)-1):nrow(class_roster), 1:(nrow(class_roster)-2)),
+                                    
+                                    Project_Student_ID_3 = c((nrow(class_roster)-2):nrow(class_roster), 1:(nrow(class_roster)-3)))
+  
+  for (i  in 1:nrow(Projects_Assignments))
+  {
+    
+    fullName_df_temp <- data.frame(Marker_Name = class_roster$Full_Name[Projects_Assignments$Marker_ID[i]], Project_Name_1 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_1[i]],Project_Name_2 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_2[i]], Project_Name_3 = class_roster$Full_Name[Projects_Assignments$Project_Student_ID_3[i]])
+    fullName_df <- bind_rows(fullName_df, fullName_df_temp)
+    
+  }
+  
+  
   
 }
 
-
-
+Q31to3Marker(rosterFile)
 
 
 
@@ -533,7 +574,7 @@ Q4D <- function(player_num)
   return(final_min)
 } #End Q4D
 
-Q4D(N4D)
+
 
 
 ####################################################################################################
@@ -583,163 +624,3 @@ print(I_am_Over_This)
 
 
 
-
-####################################################################################################
-######################################## DEAD CODE #################################################
-####################################################################################################
-
-# Q3
-# 
-# class_roster <- data.frame(read.csv("BTMA 636 - 797 (Fall 2022).csv"))
-# print(class_roster)
-# class_roster <- tibble::rowid_to_column(class_roster,"Student_ID")
-# 
-# class_roster <- class_roster %>% unite('Full_Name', First.Name:Last.Name, remove = FALSE) 
-# numbers_used_Q3 <- 1:nrow(class_roster)
-# print(class_roster)
-# print(numbers_used_Q3)
-# 
-# 
-# 
-# student_marking <- vector() #who is marking
-# #students_used <- vector() #people being marked by Student_marking
-# NQ3 <- 33 
-# final_list <- data.frame()
-# 
-# 
-# 
-# if(NQ3 < 4)
-# {
-#   
-#   print("This roster size is too small. Minimum of 4")
-#   
-#   
-# }else
-# {
-#   
-#   ###################################################################    
-#   #Go over the whole class list
-#   #for (i in 1:NQ3) 
-#   for (i in 1: 6){
-#     
-#     
-#     #Get the student who is going to be the marker
-#     if(i <= 6) #NQ3
-#     {
-#       temp_list <- c()
-#       
-#       #Make sure no duplicate student markers are used 
-#       while (TRUE) {
-#         
-#         rng_Q3 <- sample(numbers_used_Q3, 1) #pick a student to be the marker
-#         
-#         print(paste("Student who is marking is " , rng_Q3))
-#         
-#         
-#         if(!rng_Q3 %in% student_marking) #check for previously used student markers
-#         {
-#           
-#           break
-#         }#end IF
-#         
-#         
-#       } #end while
-#       student_marking <- append(student_marking, rng_Q3) #This stores the list of students already picked to be markers
-#       
-#       ################################################   
-#       students_used <- vector()
-#       for (i  in 1:3)
-#       {
-#         
-#         
-#         while (TRUE)
-#         {
-#           rng_Q3_1 <- sample(numbers_used_Q3, 1)
-#           print(paste("Students projects to be graded ", rng_Q3_1))
-#           
-#           
-#           if(rng_Q3_1 != rng_Q3) #make sure the project being picked is the markers project
-#           {
-#             break
-#             
-#             
-#             #end IF
-#           }
-#           
-#           if(!rng_Q3_1 %in% students_used) #check to make sure the same student project isnt being picked twice for the marker
-#           {
-#             
-#             break
-#             
-#           } #end IF
-#           
-#           temp_list <- c(temp_list, rng_Q3, rng_Q3_1)
-#           print("temp list")
-#           print(temp_list)
-#           
-#         }#END WHILE
-#         
-#         
-#         students_used <- append(students_used, rng_Q3_1)
-#         
-#         
-#         
-#       } #END FOR LOOP 1:3
-#       
-#       
-#     } #end IF
-#     
-#     
-#   } #End For
-#   
-# }#end Else
-# 
-# 
-
-
-
-
-# 
-# 
-# 
-# Q4atoc <- function(player_guess)
-#   
-# {
-#   random_generator <- sample(0:1000 , 1, replace=TRUE)
-#   print(random_generator)
-#   
-#   #This is supposed to handle the win condition
-#   
-#   if(player_guess == random_generator)
-#   {
-#     print("You win this time Gadget! But I'll get you next time! Meow!")
-#     
-#   }
-#   
-#   #else{
-#   difference_amount <- abs((player_guess +1)- random_generator) # instead of doing 2 if statements use the absolute function 200IQ, +1 to count for the inclusiveness
-#   
-#   difference_amount_sqr <- difference_amount**2 #square the difference
-#   
-#   roundToFiveGrand <- round(difference_amount_sqr/5000)*5000  #round to the nearest 5 Grand
-#   
-#   print("The house wins again, You owe this much:")
-#   
-#   print(roundToFiveGrand) #safety Check make sure the number is a single number
-#   
-#   if(roundToFiveGrand >= 500000)
-#   {
-#     print("Oof, that sucks. Looks like you might need this more than ever before. I hear they have a great benefits plan after 10 years https://careers.mcdonalds.ca/")
-#   }else if(roundToFiveGrand >= 499999)
-#     
-#   {
-#     print("That sucks, it could be worse. But you might want to bookmark this page just in case. https://careers.walmart.ca/")
-#   }else 
-#   {
-#     print("Hope you got deep pockets, bc it only gets worse from here champ!")
-#     
-#   } #End else
-#   
-#   #} # end else
-#   
-# } #End Function

@@ -176,14 +176,17 @@ if(mean(EX4DF$exam_scores4) < 75)
       
       if(pValue + bValue < 60)
       {
+        
+        #dont need all grades just the average
         Q1B_DF_1 <- data.frame(Col1 = Grade_Estimator(bChecker, pValue, bValue))   
         Q1B_DF <- bind_rows(Q1B_DF, Q1B_DF_1)
         
         #end IF
+        pb_DF <- bind_rows(PValue = pValue, BValue = bValue, MeanScore = mean(Q1B_DF$Col1), StdScore = std(Q1B_DF$Col1))
       }
       if(Q1B_DF$Col1[i] > 70 & Q1B_DF$Col1[i] < 75)
       {
-        pb_DF <- bind_rows(PValue = pValue, BValue = bValue, MeanScore = mean(Q1B_DF$Col1), StdScore = std(Q1B_DF$Col1))
+        
 
 
 
