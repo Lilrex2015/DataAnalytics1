@@ -20,6 +20,7 @@ load("exam_scores5.rda")
 load("HW2Q4.Rdata")
 rosterFile <- read.csv("BTMA 636 - 797 (Fall 2022).csv")
 
+
 EX1DF <-  data.frame(exam_scores1)
 EX2DF <-  data.frame(exam_scores2)
 EX3DF <-  data.frame(exam_scores3)
@@ -159,7 +160,7 @@ EX5DF <-  data.frame(exam_scores5)
 #Question 1: The Grade Analyzer function will take in all the score values and return the proper grade value
 
 
-
+Grade_Analyzer(S,R,P,B)
 #This function answers questions 1-3,5,6,7 of Q1
 Grade_Analyzer <- function(S, R, P, B)
 {
@@ -244,7 +245,7 @@ else if(R < PB)
  R <- 67
 
 
-Grade_Analyzer(S,R,P,B)
+
 
 #########################
 #########################
@@ -458,8 +459,8 @@ RND_Stu_Sel <- function(N, student_DF)
 
 Q31to3Marker <- function(rosterFile)
 {
-  class_roster <- data.frame(rosterFile)
-  #class_roster <- data.frame(read.csv("BTMA 636 - 797 (Fall 2022).csv"))
+  #class_roster <- data.frame(rosterFile)
+  class_roster <- data.frame(read.csv("BTMA 636 - 797 (Fall 2022).csv"))
   print(class_roster)
   class_roster <- tibble::rowid_to_column(class_roster,"Student_ID")
   
@@ -486,7 +487,7 @@ Q31to3Marker <- function(rosterFile)
     
   }
   
-  
+  print(fullName_df)
   
 }
 
